@@ -1,0 +1,30 @@
+<html> 
+    <body>
+        <p id="name"></p>
+        <p id="organization"></p>
+        <p id="gender"></p>
+        <p id="numberOfCon"></p>
+        <p id="condition"></p>
+
+    <script>
+        var dataJSON = '{"resourceType": "Patient","id": "xcda","text": {"status": "generated",'+
+                        '"div": "\\n      \\n      <p>Henry Levin the 7th</>\\n    \\n    </div>"},"identifier": {'+
+                        '"use": "usual","type": {"coding": [{"system": "http://hl7.org/fhir/v2/0203","code": "MR"'+
+                        '}]},"system": "urn:oid:2.16.840.1.113883.19.5","value": "12345","active": true,'+
+                        '"name": [{"family": ["Levin"],"given": ["Henry"]}],"gender": "male","birthDate": "2002-09-24",'+
+                        '"managingOrganization": {"reference": "Organization/2.16.840.1.113883.19.5",'+
+                        '"display": "University Health Network"},"conditions": ["Diabetes","High blood pressure",'+
+                        '"Asthma"]}}';
+        var data = JSON.parse(dataJSON);
+        document.getElementById("name").innerHTML = "Name of patient: " + data.identifier.name[0].given + " "+ data.identifier.name[0].family;
+        document.getElementById("organization").innerHTML = "Organization name: " + data.identifier.managingOrganization.display;
+        document.getElementById("gender").innerHTML = "Gender: " + data.identifier.gender;
+        var numberOfCon = data.identifier.conditions.length;
+        document.getElementById("numberOfCon").innerHTML = "Number of conditions they have: " + numberOfCon;
+        document.getElementById("condition").innerHTML = "List of all conditions: ";
+        for (var i=0;i<numberOfCon;i++){
+            document.write("-" + data.identifier.conditions[i] + "<br>");
+        }
+    </script>
+    </body>
+</html>
